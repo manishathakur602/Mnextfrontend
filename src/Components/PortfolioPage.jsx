@@ -5,7 +5,7 @@ import second from "../assets/Images/second.png"
 import third from "../assets/Images/third.png"
 import fourth from "../assets/Images/fourth.png"
 import fifth from "../assets/Images/fifth.png"
-import Cllsection from './Cllsection';
+import Cllsection from './Servicespage/Cllsection';
 const portfolioImages = [
   { src: first, link: "https://digiskyfusion.com/" },
   { src: second, link: "https://digisky.ai/" },
