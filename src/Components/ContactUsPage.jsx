@@ -18,7 +18,7 @@ const ContactUsPage = () => {
 
     try {
       const response = await axios.post(`${API_URL}api/contact`, formData);
-      console.log("hello",response)
+      // console.log("hello",response)
       if (response.data.success) {
         setStatus("Message sent successfully!");
         setFormData({ name: "", email: "", message: "" }); // reset form
