@@ -1,12 +1,13 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
-import { FaEnvelope } from "react-icons/fa";
+import { FaEnvelope, FaUser, FaCommentDots, FaHeadset, FaClock } from "react-icons/fa";
 import axios from "axios";
+import toast, { Toaster } from "react-hot-toast";
 
 const ContactUsPage = () => {
   const API_URL = import.meta.env.VITE_API_URL;
   const [formData, setFormData] = useState({ name: "", email: "", message: "" });
-  const [status, setStatus] = useState(""); // success/error message
+  const [loading, setLoading] = useState(false);
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -14,108 +15,138 @@ const ContactUsPage = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setStatus("Sending...");
+    setLoading(true);
+
+    const toastId = toast.loading("Sending your message...");
 
     try {
       const response = await axios.post(`${API_URL}api/contact`, formData);
-      // console.log("hello",response)
       if (response.data.success) {
-        setStatus("Message sent successfully!");
-        setFormData({ name: "", email: "", message: "" }); // reset form
+        toast.success("Message sent successfully!", { id: toastId });
+        setFormData({ name: "", email: "", message: "" });
+      } else {
+        toast.error("Something went wrong. Please try again.", { id: toastId });
       }
     } catch (error) {
-      setStatus("Failed to send message. Please try again.");
+      toast.error("Failed to send message. Please try again.", { id: toastId });
       console.error(error);
+    } finally {
+      setLoading(false);
     }
   };
 
   return (
-    <section className="py-24 bg-gradient-to-r from-blue-100 via-purple-100 to-pink-100">
-      <div className="max-w-6xl mx-auto px-6">
-        <h1 className="text-5xl font-extrabold text-blue-700 text-center mb-4">Contact Us</h1>
-        <p className="text-lg text-gray-700 text-center mb-16">
-          We'd love to hear from you! Fill out the form below or reach us directly via email.
+    <section className="py-16 sm:py-20 md:py-24 bg-gradient-to-r from-blue-100 via-purple-100 to-pink-100">
+      {/* Toast Container */}
+      <Toaster position="top-center" reverseOrder={false} />
+
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 md:px-8">
+        {/* Heading */}
+        <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-blue-700 text-center mb-4">
+          Contact Us
+        </h1>
+        <p className="text-base sm:text-lg text-gray-700 text-center mb-12 sm:mb-16">
+          We'd love to hear from you! Fill out the form below or reach us directly.
         </p>
 
-        <div className="grid lg:grid-cols-2 gap-12 items-start">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-12 items-start">
           {/* Contact Form */}
           <motion.form
             onSubmit={handleSubmit}
-            className="bg-white p-10 rounded-3xl shadow-2xl"
+            className="bg-white p-6 sm:p-8 md:p-10 rounded-2xl sm:rounded-3xl shadow-2xl"
             initial={{ opacity: 0, y: 50 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7 }}
           >
-            <div className="mb-6 relative">
-              <FaEnvelope className="absolute left-4 top-4 text-blue-400 text-lg" />
+            {/* Name Input */}
+            <div className="mb-5 sm:mb-6 relative">
+              <FaUser className="absolute left-3 top-1/2 -translate-y-1/2 text-blue-400 text-lg sm:text-xl" />
               <input
                 type="text"
                 name="name"
                 placeholder="Your Name"
                 value={formData.name}
                 onChange={handleChange}
-                className="w-full p-4 pl-12 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-400 transition"
+                className="w-full py-3 sm:py-4 pl-10 sm:pl-12 rounded-lg sm:rounded-xl border border-gray-300 
+                           focus:outline-none focus:ring-2 focus:ring-blue-400 transition text-sm sm:text-base"
                 required
               />
             </div>
 
-            <div className="mb-6 relative">
-              <FaEnvelope className="absolute left-4 top-4 text-blue-400 text-lg" />
+            {/* Email Input */}
+            <div className="mb-5 sm:mb-6 relative">
+              <FaEnvelope className="absolute left-3 top-1/2 -translate-y-1/2 text-blue-400 text-lg sm:text-xl" />
               <input
                 type="email"
                 name="email"
                 placeholder="Your Email"
                 value={formData.email}
                 onChange={handleChange}
-                className="w-full p-4 pl-12 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-400 transition"
+                className="w-full py-3 sm:py-4 pl-10 sm:pl-12 rounded-lg sm:rounded-xl border border-gray-300 
+                           focus:outline-none focus:ring-2 focus:ring-blue-400 transition text-sm sm:text-base"
                 required
               />
             </div>
 
-            <div className="mb-6">
+            {/* Message Input */}
+            <div className="mb-5 sm:mb-6 relative">
+              <FaCommentDots className="absolute left-3 top-4 text-blue-400 text-lg sm:text-xl" />
               <textarea
                 name="message"
                 placeholder="Your Message"
                 value={formData.message}
                 onChange={handleChange}
-                className="w-full p-4 rounded-xl border border-gray-300 h-40 resize-none focus:outline-none focus:ring-2 focus:ring-blue-400 transition"
+                className="w-full p-3 sm:p-4 pl-10 sm:pl-12 rounded-lg sm:rounded-xl border border-gray-300 
+                           h-32 sm:h-40 resize-none focus:outline-none focus:ring-2 focus:ring-blue-400 
+                           transition text-sm sm:text-base"
                 required
               ></textarea>
             </div>
 
+            {/* Submit Button */}
             <button
               type="submit"
-              className="w-full py-4 bg-blue-700 text-white font-bold rounded-xl hover:bg-blue-800 transition-all"
+              disabled={loading}
+              className="w-full py-3 sm:py-4 bg-blue-700 text-white font-bold rounded-lg sm:rounded-xl 
+                         hover:bg-blue-800 disabled:opacity-70 transition-all text-sm sm:text-base cursor-pointer"
             >
-              Send Message
+              {loading ? "Sending..." : "Send Message"}
             </button>
-
-            {status && (
-              <p className="mt-4 text-center text-gray-700 font-medium">{status}</p>
-            )}
           </motion.form>
 
           {/* Contact Info */}
           <motion.div
-            className="bg-white p-10 rounded-3xl shadow-2xl space-y-8"
+            className="bg-white p-6 sm:p-8 md:p-10 rounded-2xl sm:rounded-3xl shadow-2xl space-y-6 sm:space-y-8"
             initial={{ opacity: 0, x: 50 }}
             whileInView={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.7 }}
           >
-            <h2 className="text-3xl font-semibold text-blue-700">Get in Touch</h2>
-            <p className="text-gray-700">You can also reach us directly via email:</p>
+            <h2 className="text-2xl sm:text-3xl font-semibold text-blue-700">Get in Touch</h2>
 
-            <div className="flex items-center space-x-4">
-              <FaEnvelope className="text-blue-600 text-xl" />
+            {/* Email */}
+            <div className="flex items-center space-x-3 sm:space-x-4">
+              <FaEnvelope className="text-blue-600 text-lg sm:text-xl" />
               <a
                 href="mailto:manishsharma5382@gmail.com"
-                className="text-blue-700 font-semibold hover:underline"
+                className="text-blue-700 font-semibold hover:underline text-sm sm:text-base"
               >
                 manishsharma5382@gmail.com
               </a>
             </div>
 
-            <p className="text-gray-500 mt-6">
+            {/* 24x7 Support */}
+            <div className="flex items-center space-x-3 sm:space-x-4">
+              <FaHeadset className="text-purple-600 text-lg sm:text-xl" />
+              <p className="text-gray-700 text-sm sm:text-base">24×7 Customer Support</p>
+            </div>
+
+            {/* Office Hours */}
+            <div className="flex items-center space-x-3 sm:space-x-4">
+              <FaClock className="text-yellow-600 text-lg sm:text-xl" />
+              <p className="text-gray-700 text-sm sm:text-base">Mon – Sat: 9:00 AM – 8:00 PM</p>
+            </div>
+
+            <p className="text-gray-500 text-sm sm:text-base mt-4 sm:mt-6">
               We'll respond as soon as possible. Thank you for reaching out!
             </p>
           </motion.div>
