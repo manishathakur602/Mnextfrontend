@@ -62,7 +62,7 @@ function Cards() {
   ];
 
   return (
-    <section className="py-16 bg-gradient-to-r from-blue-50 via-purple-50 to-pink-50">
+    <section className="py-16 bg-gradient-to-r from-blue-50 via-purple-50 to-pink-50 gilda-display-regular">
       <div className=" mx-auto px-4 lg:px-10">
         <h1 className="text-4xl md:text-5xl font-extrabold text-center text-blue-700 mb-12">
           Our Services

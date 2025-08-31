@@ -1,76 +1,51 @@
-import React from 'react'
-
+import React from "react";
 import { FaLaptopCode, FaShoppingCart, FaUser, FaCogs } from "react-icons/fa";
 import { motion } from "framer-motion";
 
 function ServiceFirst() {
-    const containerVariants = {
-    hidden: { opacity: 0, y: 30 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: { duration: 0.6, staggerChildren: 0.2 },
-    },
-  };
+  const services = [
+    { icon: <FaLaptopCode />, title: "Responsive Design", gradient: "from-blue-400 to-blue-600" },
+    { icon: <FaCogs />, title: "Fast Performance", gradient: "from-green-400 to-green-600" },
+    { icon: <FaUser />, title: "Creative Design", gradient: "from-pink-400 to-pink-600" },
+    { icon: <FaShoppingCart />, title: "Affordable Pricing", gradient: "from-yellow-400 to-yellow-600" },
+  ];
+
   return (
-    <div>
-       <motion.div
+    <div className="relative py-20 bg-gradient-to-r from-blue-100 to-blue-100 overflow-hidden -z-0 gilda-display-regular">
+      {/* Animated background shapes */}
+      <div className="absolute -top-20 -left-20 w-72 h-72 sm:w-96 sm:h-96 bg-blue-300 rounded-full opacity-30 animate-pulse"></div>
+      <div className="absolute -bottom-20 -right-20 w-56 h-56 sm:w-72 sm:h-72 bg-pink-400 rounded-full opacity-30 animate-pulse"></div>
+
+      <motion.div
         initial={{ opacity: 0, y: -50 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 1 }}
-        className="px-2"
+        className="mx-auto px-4 lg:px-10 text-center relative z-10"
       >
-        <div className="mx-auto text-center py-10 rounded-3xl px-6 bg-gradient-to-r from-blue-100 to-blue-50 shadow-lg">
-          <h1 className="text-4xl font-bold text-blue-600 mb-3">
-            Our Services
-          </h1>
-          <p className="mt-2 text-lg text-gray-700 mb-4">
-            Affordable and professional website solutions to help your business
-            grow online.
-          </p>
-          <p className="text-gray-600 text-lg mb-6">
-            Whether you need a portfolio, business, e-commerce, or custom
-            website, we've got you covered!
-          </p>
+        <h2 className="text-3xl sm:text-4xl font-extrabold text-blue-700 mb-4">Our Services</h2>
+        <p className="text-sm sm:text-lg mb-12">
+          Affordable and professional website solutions to help your business grow online.
+        </p>
 
-          {/* Benefits */}
-          <div className="flex flex-wrap justify-center gap-6 mb-6">
-            <div className="bg-white rounded-xl shadow p-4 w-36 hover:shadow-lg transition">
-              <span className="text-blue-500 text-3xl mb-2 inline-block">
-                💻
-              </span>
-              <p className="text-gray-700 font-medium">Responsive Design</p>
-            </div>
-            <div className="bg-white rounded-xl shadow p-4 w-36 hover:shadow-lg transition">
-              <span className="text-green-500 text-3xl mb-2 inline-block">
-                ⚡
-              </span>
-              <p className="text-gray-700 font-medium">Fast Performance</p>
-            </div>
-            <div className="bg-white rounded-xl shadow p-4 w-36 hover:shadow-lg transition">
-              <span className="text-pink-500 text-3xl mb-2 inline-block">
-                🎨
-              </span>
-              <p className="text-gray-700 font-medium">Creative Design</p>
-            </div>
-            <div className="bg-white rounded-xl shadow p-4 w-36 hover:shadow-lg transition">
-              <span className="text-yellow-500 text-3xl mb-2 inline-block">
-                💰
-              </span>
-              <p className="text-gray-700 font-medium">Affordable Pricing</p>
-            </div>
-          </div>
-
-          {/* <motion.button
-            whileHover={{ scale: 1.05 }}
-            className="bg-blue-600 text-white px-6 py-3 rounded-full hover:bg-blue-700 transition"
-          >
-            Explore Services
-          </motion.button> */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-10">
+          {services.map((service, index) => (
+            <motion.div
+              key={index}
+              whileHover={{ scale: 1.08, y: -8 }}
+              className="bg-white rounded-3xl shadow-2xl p-6 sm:p-8 flex flex-col items-center justify-center transition duration-300"
+            >
+              <div
+                className={`bg-gradient-to-r ${service.gradient} text-white text-4xl sm:text-5xl p-4 sm:p-6 rounded-full mb-4 shadow-lg`}
+              >
+                {service.icon}
+              </div>
+              <h3 className="text-lg sm:text-xl font-semibold text-gray-800">{service.title}</h3>
+            </motion.div>
+          ))}
         </div>
       </motion.div>
     </div>
-  )
+  );
 }
 
-export default ServiceFirst
+export default ServiceFirst;

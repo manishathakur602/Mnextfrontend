@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { FaEnvelope, FaUser, FaCommentDots, FaHeadset, FaClock } from "react-icons/fa";
 import axios from "axios";
@@ -8,6 +8,19 @@ const ContactUsPage = () => {
   const API_URL = import.meta.env.VITE_API_URL;
   const [formData, setFormData] = useState({ name: "", email: "", message: "" });
   const [loading, setLoading] = useState(false);
+  const [currentTime, setCurrentTime] = useState(new Date());
+
+  // Update time every second
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentTime(new Date());
+    }, 1000);
+    return () => clearInterval(interval);
+  }, []);
+
+  // Determine if office is open
+  const hours = currentTime.getHours();
+  const isOpen = hours >= 9 && hours < 20;
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -16,7 +29,6 @@ const ContactUsPage = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
-
     const toastId = toast.loading("Sending your message...");
 
     try {
@@ -35,13 +47,16 @@ const ContactUsPage = () => {
     }
   };
 
+  // Format current time
+  const formatTime = (date) => {
+    return date.toLocaleTimeString(); // shows HH:MM:SS AM/PM
+  };
+
   return (
-    <section className="py-16 sm:py-20 md:py-24 bg-gradient-to-r from-blue-100 via-purple-100 to-pink-100">
-      {/* Toast Container */}
+    <section className="py-16 sm:py-20 md:py-24 bg-gradient-to-r from-blue-100 via-purple-100 to-pink-100 gilda-display-regular">
       <Toaster position="top-center" reverseOrder={false} />
 
       <div className="max-w-6xl mx-auto px-4 sm:px-6 md:px-8">
-        {/* Heading */}
         <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-blue-700 text-center mb-4">
           Contact Us
         </h1>
@@ -58,7 +73,6 @@ const ContactUsPage = () => {
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7 }}
           >
-            {/* Name Input */}
             <div className="mb-5 sm:mb-6 relative">
               <FaUser className="absolute left-3 top-1/2 -translate-y-1/2 text-blue-400 text-lg sm:text-xl" />
               <input
@@ -73,7 +87,6 @@ const ContactUsPage = () => {
               />
             </div>
 
-            {/* Email Input */}
             <div className="mb-5 sm:mb-6 relative">
               <FaEnvelope className="absolute left-3 top-1/2 -translate-y-1/2 text-blue-400 text-lg sm:text-xl" />
               <input
@@ -88,7 +101,6 @@ const ContactUsPage = () => {
               />
             </div>
 
-            {/* Message Input */}
             <div className="mb-5 sm:mb-6 relative">
               <FaCommentDots className="absolute left-3 top-4 text-blue-400 text-lg sm:text-xl" />
               <textarea
@@ -103,7 +115,6 @@ const ContactUsPage = () => {
               ></textarea>
             </div>
 
-            {/* Submit Button */}
             <button
               type="submit"
               disabled={loading}
@@ -123,7 +134,6 @@ const ContactUsPage = () => {
           >
             <h2 className="text-2xl sm:text-3xl font-semibold text-blue-700">Get in Touch</h2>
 
-            {/* Email */}
             <div className="flex items-center space-x-3 sm:space-x-4">
               <FaEnvelope className="text-blue-600 text-lg sm:text-xl" />
               <a
@@ -134,19 +144,24 @@ const ContactUsPage = () => {
               </a>
             </div>
 
-            {/* 24x7 Support */}
             <div className="flex items-center space-x-3 sm:space-x-4">
               <FaHeadset className="text-purple-600 text-lg sm:text-xl" />
-              <p className="text-gray-700 text-sm sm:text-base">24×7 Customer Support</p>
+              <p className=" text-sm sm:text-base">24×7 Customer Support</p>
             </div>
 
-            {/* Office Hours */}
             <div className="flex items-center space-x-3 sm:space-x-4">
               <FaClock className="text-yellow-600 text-lg sm:text-xl" />
-              <p className="text-gray-700 text-sm sm:text-base">Mon – Sat: 9:00 AM – 8:00 PM</p>
+              <p className="text-sm sm:text-base">
+                Office Hours: Mon – Sat: 9:00 AM – 8:00 PM (
+                <span className={isOpen ? "text-green-500 font-semibold" : "text-red-500 font-semibold"}>
+                  {isOpen ? "Open" : "Closed"}
+                </span>
+                ) <br />
+                Current Time: <span className="font-semibold">{formatTime(currentTime)}</span>
+              </p>
             </div>
 
-            <p className="text-gray-500 text-sm sm:text-base mt-4 sm:mt-6">
+            <p className=" text-sm sm:text-base mt-4 sm:mt-6">
               We'll respond as soon as possible. Thank you for reaching out!
             </p>
           </motion.div>
