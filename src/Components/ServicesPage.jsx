@@ -5,7 +5,7 @@ import Cards from "./Servicespage/Cards";
 import Process from "./Servicespage/Process";
 import Testimonial from "./Servicespage/Testimonial";
 import Cllsection from "./Servicespage/Cllsection";
-import ServiceFirst from "./Servicespage/serviceFirst";
+import ServiceFirst from "./Servicespage/ServiceFirst";
 
 
 const ServicesPage = () => {
