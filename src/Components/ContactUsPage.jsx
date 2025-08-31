@@ -110,7 +110,7 @@ const ContactUsPage = () => {
               className="w-full py-3 sm:py-4 bg-blue-700 text-white font-bold rounded-lg sm:rounded-xl 
                          hover:bg-blue-800 disabled:opacity-70 transition-all text-sm sm:text-base cursor-pointer"
             >
-              {loading ? "Sending..." : "Send Message"}
+              {loading ? "Sending..." : "Send Message"} 
             </button>
           </motion.form>
 
