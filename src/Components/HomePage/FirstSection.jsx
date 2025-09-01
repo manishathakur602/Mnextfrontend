@@ -13,7 +13,7 @@ const avatars = [
 
 function HeroSection() {
   return (
-    <section className="relative min-h-screen flex items-center justify-center bg-gradient-to-br from-purple-700 via-blue-600 to-black text-white overflow-hidden px-6 md:px-12">
+    <section className="relative min-h-screen flex items-center justify-center bg-blue-600 to-black text-white overflow-hidden px-6 md:px-12">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center max-w-7xl w-full">
         
         {/* Left Content */}
@@ -23,14 +23,14 @@ function HeroSection() {
             initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1, ease: "easeOut" }}
-            className="text-4xl md:text-5xl lg:text-6xl font-extrabold leading-tight"
+            className="text-4xl md:text-5xl lg:text-5xl font-medium leading-tight"
           >
-            <span className="bg-gradient-to-r from-yellow-300 via-pink-400 to-purple-500 bg-clip-text text-transparent">
+            <span className="bg-white bg-clip-text text-transparent">
               Unlock Top Marketing Talent
             </span>{" "}
             <br />
             <span className="text-white">You Thought Was Out of Reach –</span>{" "}
-            <span className="bg-gradient-to-r from-cyan-400 to-emerald-400 bg-clip-text text-transparent">
+            <span className="bg-white bg-clip-text text-transparent">
               Now Just One Click Away!
             </span>
           </motion.h1>
@@ -72,8 +72,8 @@ function HeroSection() {
         <div className="relative flex items-center justify-center">
           {/* Center Text */}
           <div className="absolute text-center z-10">
-            <h2 className="text-3xl md:text-5xl font-bold">20k+</h2>
-            <p className="text-gray-300">Specialists</p>
+            <h2 className="text-3xl md:text-4xl font-bold">10k+</h2>
+            <p className="text-gray-300 text-2xl">Specialists</p>
           </div>
 
           {/* Orbit System */}
