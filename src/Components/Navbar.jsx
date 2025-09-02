@@ -15,7 +15,7 @@ const Navbar = () => {
   ];
 
   return (
-    <nav className="bg-gradient-to-r from-white via-gray-100 to-blue-50 p-4 text-gray-800 shadow-lg sm:px-5 lg:px-10 sticky top-0 z-10">
+    <nav className="bg-gradient-to-r from-white via-gray-100 to-blue-50 p-4 text-gray-800 shadow-lg sm:px-5 lg:px-10 sticky top-0 z-10 gilda-display-regulars">
       <div className="flex justify-between items-center">
         {/* Logo */}
         <NavLink to="/" className="flex items-center space-x-2">

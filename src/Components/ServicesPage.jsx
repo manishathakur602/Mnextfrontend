@@ -36,7 +36,7 @@ const ServicesPage = () => {
       <Testimonial />
       {/* <FAQ /> */}
 
-      <Cllsection />
+      {/* <Cllsection /> */}
       </motion.div>
       
     </section>

@@ -6,7 +6,7 @@ function Cllsection() {
     <div>
         {/* Call to Action */}
       <motion.div
-        className="text-center py-20 bg-gradient-to-r from-blue-600 to-indigo-500 text-white rounded-t-3xl"
+        className="text-center py-20 bg-gradient-to-r from-blue-600 to-indigo-500 text-white rounded-t-3xl gilda-display-regular"
         initial={{ opacity: 0, y: 50 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}

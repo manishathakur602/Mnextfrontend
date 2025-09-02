@@ -27,10 +27,10 @@ function Process() {
   ];
 
   return (
-    <section className="relative py-14 bg-gradient-to-br from-blue-50 via-white to-purple-50 -z-0">
+    <section className="relative py-14 bg-gradient-to-br from-blue-50 via-white to-purple-50 -z-0 gilda-display-regular">
       <div className=" mx-auto px-4 lg:px-10">
         {/* Heading */}
-     <h2 className="text-4xl sm:text-5xl font-bold text-center mb-16 relative">
+     <h2 className=" text-xl sm:text-5xl font-bold text-center mb-16 relative">
   <span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-purple-600">
     From Concept to Launch
   </span>
